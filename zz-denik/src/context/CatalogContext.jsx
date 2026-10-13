@@ -212,9 +212,10 @@ export function CatalogProvider({ children }) {
   }, [loadCatalog]);
 
   useEffect(() => {
-    // V natívnej aplikácii backend neexistuje — katalóg sa berie rovno
-    // z pribaleného JSON-u (rýchlejší štart, žiadny neúspešný request).
-    if (Capacitor.isNativePlatform()) {
+    // V natívnej aplikácii a v statickom PWA builde (GitHub Pages)
+    // backend neexistuje — katalóg sa berie rovno z pribaleného JSON-u
+    // (rýchlejší štart, žiadny neúspešný request).
+    if (Capacitor.isNativePlatform() || import.meta.env.VITE_STATIC_CATALOG === 'true') {
       setState(createFallbackCatalog());
       return undefined;
     }
